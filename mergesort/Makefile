@@ -1,2 +1,2 @@
 build:
-	@gcc -c mergesort.c $(GCC_OPTIONS)
+	@gcc -c mergesort.c file_mergesort.c $(GCC_OPTIONS)
