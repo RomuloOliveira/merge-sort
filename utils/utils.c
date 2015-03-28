@@ -25,28 +25,43 @@ int compare_array(int* a, int* b, int len) {
 
 int read_file(char* filename, int* array, int len) {
     FILE* f = fopen(filename, "rb");
-    int i = 0;
-    int n = 0;
-    int successful_read = 0;
+    int ret = 0;
 
     if (!f) {
         return 0;
     }
 
-    while (1) {
+    ret = fread_file(f, array, len);
+
+    fclose(f);
+
+    return ret;
+}
+
+int fread_file(FILE *f, int* array, int len) {
+    int i = 0;
+    int n = 0;
+    int successful_read = 0;
+    int read_count = 0;
+
+    while (i < len) {
+        if (feof(f)) {
+            break;
+        }
+
         successful_read = (int) fread(&n, sizeof(n), 1, f);
 
         if (!successful_read) {
             break;
         }
 
+        read_count = read_count + successful_read;
+
         array[i] = n;
         i = i + 1;
     }
 
-    fclose(f);
-
-    return 1;
+    return read_count;
 }
 
 int write_file(char* filename, int* array, int len) {

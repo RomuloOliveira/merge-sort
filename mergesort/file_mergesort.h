@@ -4,6 +4,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void fmerge_sort(FILE* filename, size_t buffer_size);
+void fmerge_sort(FILE* f, size_t buffer_size, size_t max_size);
 
 #endif
