@@ -9,7 +9,10 @@ clean:
 build: clean
 	@$(MAKE) -C mergesort
 	@$(MAKE) -C utils
-	@gcc -o main.out main.c mergesort/*.o $(GCC_OPTIONS)
+	@gcc -o mergesort.out main.c mergesort/*.o utils/*.o $(GCC_OPTIONS)
+
+example: build
+	./mergesort.out 2 6 5
 
 test: clean
 	@$(MAKE) -C mergesort build
