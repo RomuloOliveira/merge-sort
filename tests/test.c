@@ -1,16 +1,16 @@
 #include <stdio.h>
-#include "mergesort/mergesort.h"
+#include "test_mergesort.h"
+
+void test(void (*fn)(), char* name) {
+    printf("Testing %s\n", name);
+
+    fn();
+}
 
 int main(int argc, char* argv[]) {
-    int i = 0;
-    int array[] = {9, 6, 7, 2, 5, 6};
-
-    printf("Hello, merge sort!\n");
-    merge_sort(array, 0, 5);
-
-    for (i = 0; i < 6; i++) {
-        printf("%d\n", array[i]);
-    }
+    test(test_simple, "test_simple");
+    test(test_empty, "test_empty");
+    test(test_reversed_list, "test_reversed_list");
 
     return 0;
 }
