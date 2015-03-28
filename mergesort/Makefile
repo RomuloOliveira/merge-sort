@@ -1,2 +1,2 @@
 build:
-	gcc -c mergesort.c
+	gcc -c mergesort.c $(GCC_OPTIONS)
