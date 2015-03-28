@@ -8,8 +8,11 @@ clean:
 
 build: clean
 	@$(MAKE) -C mergesort
+	@$(MAKE) -C utils
 	@gcc -o main.out main.c mergesort/*.o $(GCC_OPTIONS)
 
 test: clean
-	@$(MAKE) -C mergesort
-	@$(MAKE) -C tests
+	@$(MAKE) -C mergesort build
+	@$(MAKE) -C utils build
+	@$(MAKE) -C tests build
+	@./tests/test.out
