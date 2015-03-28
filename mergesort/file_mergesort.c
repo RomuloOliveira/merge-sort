@@ -7,6 +7,10 @@
 void fmerge(FILE** file_list, size_t buffer_size, int len) {
     int i = 0;
 
+    /*
+    * Idea: merge two files at time
+    */
+
     for (i = 0; i < len; i++) {
         fclose(file_list[i]);
     }
