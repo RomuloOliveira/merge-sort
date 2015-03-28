@@ -1,5 +1,12 @@
+GCC_OPTIONS=-ansi -Wall
+
+all: build
+
 clean:
-	# clean
+	find -name '*.o' -delete
+	find -name '*.out' -delete
 
 build: clean
-	gcc -ansi -o main.out main.c mergesort.c -Wall
+	$(MAKE) -C mergesort
+	$(MAKE) -C tests
+	gcc -o main.out main.c mergesort/*.o $(GCC_OPTIONS)

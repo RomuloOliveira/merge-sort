@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include "mergesort.h"
+#include "mergesort/mergesort.h"
 
 int main(int argc, char* argv[]) {
     int i = 0;
