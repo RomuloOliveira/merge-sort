@@ -2,15 +2,30 @@
 #include "mergesort.h"
 
 void merge(int* list, int begin, int middle, int end) {
-    int len = end - begin;
+    /*
+    * Merge an array [begin..end] splitting in two sides A and B
+    * A = [begin..middle-1]
+    * B = [middle..end]
+    */
+
+    int len = end - begin + 1;
     int i = 0;
     int a = begin;
     int b = middle;
 
     int *temp = (int*) malloc(len * sizeof(int));
 
+    /*
+    * Iterates over array and select which one of side A or B should be selected
+    */
     for (i = begin; i <= end; i++) {
-        if ((a < middle) && (b > end || list[a] < list[b])) {
+        if (a >= middle) { /* A side exhausted */
+            temp[i] = list[b];
+            b = b + 1;
+        } else if (b > end) { /* B side exhausted */
+            temp[i] = list[a];
+            a = a + 1;
+        } else if (list[a] < list[b]) {
             temp[i] = list[a];
             a = a + 1;
         } else {
@@ -19,6 +34,7 @@ void merge(int* list, int begin, int middle, int end) {
         }
     }
 
+    /* Copy temp array to original */
     for (i = begin; i <= end; i++) {
         list[i] = temp[i];
     }
@@ -27,13 +43,13 @@ void merge(int* list, int begin, int middle, int end) {
 }
 
 void merge_sort(int* list, int begin, int end) {
-    int middle = (begin + end) / 2;
+    int middle = (begin + end + 1) / 2;
 
-    if ((end - begin) <= 1) {
+    if ((end - begin) < 1) {
         return;
     }
 
-    merge_sort(list, begin, middle);
+    merge_sort(list, begin, middle - 1);
     merge_sort(list, middle, end);
 
     merge(list, begin, middle, end);
