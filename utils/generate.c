@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 void usage(char* command) {
     printf("Usage: %s file.data int_0 int_1 int_2 ... int_n\n\n", command);

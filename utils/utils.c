@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 void print_array(int* array, int len) {
     int i = 0;
@@ -21,21 +22,6 @@ int compare_array(int* a, int* b, int len) {
     }
 
     return 1;
-}
-
-int read_file(char* filename, int* array, int len) {
-    FILE* f = fopen(filename, "rb");
-    int ret = 0;
-
-    if (!f) {
-        return 0;
-    }
-
-    ret = fread_file(f, array, len);
-
-    fclose(f);
-
-    return ret;
 }
 
 int fread_file(FILE *f, int* array, int len) {
@@ -62,6 +48,21 @@ int fread_file(FILE *f, int* array, int len) {
     }
 
     return read_count;
+}
+
+int read_file(char* filename, int* array, int len) {
+    FILE* f = fopen(filename, "rb");
+    int ret = 0;
+
+    if (!f) {
+        return 0;
+    }
+
+    ret = fread_file(f, array, len);
+
+    fclose(f);
+
+    return ret;
 }
 
 int write_file(char* filename, int* array, int len) {
