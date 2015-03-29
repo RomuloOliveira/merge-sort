@@ -1,3 +1,4 @@
+#include <assert.h>
 #include <stdio.h>
 #include <string.h>
 
@@ -44,7 +45,7 @@ void fmerge(FILE* f, FILE** file_list, size_t buffer_size, int begin, int end) {
     /* Sort two files */
     f1 = file_list[begin];
     f2 = file_list[begin + 1];
-    f3 = fopen("temp_merge", "w+b");
+    f3 = tmpfile();
 
     read_a = (int) fread(&a, sizeof(a), 1, f1);
     read_b = (int) fread(&b, sizeof(b), 1, f2);
@@ -69,11 +70,16 @@ void fmerge(FILE* f, FILE** file_list, size_t buffer_size, int begin, int end) {
     }
 
     fclose(f1);
+    fclose(f2);
+
+    f2 = tmpfile();
+
     rewind(f3);
-    f2 = freopen(0, "wb", f2);
     copy_content(f3, f2);
-    f2 = freopen(0, "rb", f2);
     fclose(f3);
+
+    rewind(f2);
+    file_list[begin + 1] = f2;
 
     fmerge(f, file_list, buffer_size, begin + 1, end);
 }
@@ -84,7 +90,6 @@ void fmerge_sort(FILE* f, size_t buffer_size, size_t max_size) {
     int len = buffer_size / sizeof(int);
     int len_read = 0;
     int times = 0;
-    char filename[100]; /* FIXME: change to #define MAX_SIZE 100 */
 
     int* buffer = (int*) malloc(buffer_size);
 
@@ -100,15 +105,16 @@ void fmerge_sort(FILE* f, size_t buffer_size, size_t max_size) {
 
         merge_sort(buffer, 0, len_read - 1);
 
-        sprintf(filename, "temp %d", times);
-        write_file(filename, buffer, len_read);
-        file_list[times] = fopen(filename, "rb");
+        file_list[times] = tmpfile();
+        fwrite_file(file_list[times], buffer, len_read);
+        rewind(file_list[times]);
 
         times = times + 1;
     };
 
     free(buffer);
 
+    rewind(f);
     fmerge(f, file_list, buffer_size, 0, times);
 
     free(file_list);

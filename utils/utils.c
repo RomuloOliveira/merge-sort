@@ -65,23 +65,31 @@ int read_file(char* filename, int* array, int len) {
     return ret;
 }
 
-int write_file(char* filename, int* array, int len) {
-    FILE* f = fopen(filename, "wb");
+int fwrite_file(FILE* f, int* array, int len) {
     int i = 0;
     int n = 0;
-
-    if (!f) {
-        return 0;
-    }
 
     for (i = 0; i < len; i++) {
         n = array[i];
         fwrite(&n, sizeof(n), 1, f);
     }
 
+    return 1;
+}
+
+int write_file(char* filename, int* array, int len) {
+    FILE* f = fopen(filename, "wb");
+    int ret = 0;
+
+    if (!f) {
+        return 0;
+    }
+
+    ret = fwrite_file(f, array, len);
+
     fclose(f);
 
-    return 1;
+    return ret;
 }
 
 void copy_argv_to_array(int* array, char* argv[], int len) {

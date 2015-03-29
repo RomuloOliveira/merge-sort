@@ -20,6 +20,7 @@ int fread_file(FILE *f, int* array, int len);
 * Return 1 if successful, 0 otherwise.
 */
 int write_file(char* filename, int* array, int len);
+int fwrite_file(FILE* f, int* array, int len);
 
 void copy_argv_to_array(int* array, char* argv[], int len);
 

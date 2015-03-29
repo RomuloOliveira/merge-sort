@@ -14,7 +14,6 @@ void test_simple_fmerge_sort() {
         4, 3, 2, 1
     };
 
-
     int b[16];
 
     FILE *f = 0;
