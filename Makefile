@@ -1,4 +1,5 @@
 GCC_OPTIONS=-ansi -Wall
+export GCC_OPTIONS
 
 all: build
 
