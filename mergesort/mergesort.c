@@ -10,6 +10,7 @@ void merge(int* list, int begin, int middle, int end) {
 
     int len = end - begin + 1;
     int i = 0;
+    int j = 0;
     int a = begin;
     int b = middle;
 
@@ -18,7 +19,7 @@ void merge(int* list, int begin, int middle, int end) {
     /*
     * Iterates over array and select which one of side A or B should be selected
     */
-    for (i = begin; i <= end; i++) {
+    for (i = 0; i < len; i++) {
         if (a >= middle) { /* A side exhausted */
             temp[i] = list[b];
             b = b + 1;
@@ -35,8 +36,9 @@ void merge(int* list, int begin, int middle, int end) {
     }
 
     /* Copy temp array to original */
-    for (i = begin; i <= end; i++) {
-        list[i] = temp[i];
+
+    for (i = begin, j = 0; i <= end; i++, j++) {
+        list[i] = temp[j];
     }
 
     free(temp);
